@@ -25,7 +25,7 @@ class CombatAction
             if ($state->phase === 'gameover') return $state;
             $state = self::playerAttacks($state);
         } else {
-            $playerInit = Dice::roll(6) + intdiv($player->agi, 4);
+            $playerInit = Dice::roll(6);
             $enemyInit  = Dice::roll(6);
 
             if ($playerInit >= $enemyInit) {
@@ -121,7 +121,7 @@ class CombatAction
     {
         $enemy = $state->currentEnemy;
 
-        if (Dice::test($state->player->agi)) {
+        if (Dice::luck()) {
             $state->currentEnemy = null;
             $state->phase        = 'dungeon';
             $state->addLog("Fled from {$enemy->name}!");

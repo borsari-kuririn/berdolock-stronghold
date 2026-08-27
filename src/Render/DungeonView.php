@@ -1,7 +1,7 @@
 <div class="gb-header">
     <span>LV:<?= $state->player->level ?></span>
-    <span>HP:<?= $state->player->hp ?></span>
-    <span>MP:<?= $state->player->mp ?></span>
+    <span>LP:<?= $state->player->hp ?>/<?= $state->player->maxHp ?></span>
+    <span>GOLD:<?= $state->player->gold ?></span>
 </div>
 
 <div class="gb-main">

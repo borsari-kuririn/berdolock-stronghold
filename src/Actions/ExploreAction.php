@@ -104,7 +104,7 @@ class ExploreAction
         ];
         $trap = $traps[array_rand($traps)];
 
-        if (Dice::test($state->player->agi)) {
+        if (Dice::luck()) {
             $state->addLog("{$trap['name']} — Dodged!");
         } else {
             $state->player->hp -= $trap['dmg'];

@@ -20,17 +20,8 @@ class CharGenAction
         }
 
         $player = $state->player;
-
-        $player->str = self::roll2d6();
-        $player->agi = self::roll2d6();
-        $player->int = self::roll2d6();
-        $player->end = self::roll2d6();
-
-        $player->maxHp = $player->end * 2;
+        $player->maxHp = self::roll2d6();
         $player->hp    = $player->maxHp;
-        $player->maxMp = $player->int;
-        $player->mp    = $player->maxMp;
-
         $state->rerolls++;
 
         return $state;
@@ -41,3 +32,4 @@ class CharGenAction
         return random_int(1, 6) + random_int(1, 6);
     }
 }
+

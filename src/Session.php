@@ -11,7 +11,13 @@ class Session
         if ($data === null) {
             return null;
         }
-        return unserialize($data);
+        // Silently discard sessions serialized against an older class schema
+        $state = @unserialize($data);
+        if (!$state instanceof GameState) {
+            self::clear();
+            return null;
+        }
+        return $state;
     }
 
     public static function save(GameState $state): void

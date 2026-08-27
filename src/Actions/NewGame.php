@@ -1,7 +1,7 @@
 <?php
 namespace Berdolock\Actions;
 
-use Berdolock\{GameState, Player, Dice};
+use Berdolock\GameState;
 
 class NewGame
 {
@@ -13,15 +13,9 @@ class NewGame
         $name = trim($post['name'] ?? '');
         $player->name = $name !== '' ? $name : 'Adventurer';
 
-        $player->str = self::roll2d6();
-        $player->agi = self::roll2d6();
-        $player->int = self::roll2d6();
-        $player->end = self::roll2d6();
-
-        $player->maxHp = $player->end * 2;
+        // HP is the only stat rolled at creation
+        $player->maxHp = self::roll2d6();
         $player->hp    = $player->maxHp;
-        $player->maxMp = $player->int;
-        $player->mp    = $player->maxMp;
 
         $player->gold    = 20;
         $player->torches = 2;
@@ -38,3 +32,4 @@ class NewGame
         return random_int(1, 6) + random_int(1, 6);
     }
 }
+

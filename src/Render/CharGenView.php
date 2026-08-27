@@ -7,32 +7,23 @@
 
     <div class="gb-chargen-stats">
         <div class="gb-chargen-row">
-            <span class="gb-chargen-label">STR</span>
-            <span class="gb-chargen-bar"><?= str_repeat('█', $p->str) ?></span>
-            <span class="gb-chargen-val"><?= $p->str ?></span>
+            <span class="gb-chargen-label">LP</span>
+            <span class="gb-chargen-bar"><?= str_repeat('█', $p->maxHp) ?></span>
+            <span class="gb-chargen-val"><?= $p->maxHp ?></span>
         </div>
-        <div class="gb-chargen-row">
-            <span class="gb-chargen-label">AGI</span>
-            <span class="gb-chargen-bar"><?= str_repeat('█', $p->agi) ?></span>
-            <span class="gb-chargen-val"><?= $p->agi ?></span>
+        <div class="gb-chargen-row" style="font-size:var(--base-s);color:#555;">
+            <span>PA</span><span></span><span>0</span>
         </div>
-        <div class="gb-chargen-row">
-            <span class="gb-chargen-label">INT</span>
-            <span class="gb-chargen-bar"><?= str_repeat('█', $p->int) ?></span>
-            <span class="gb-chargen-val"><?= $p->int ?></span>
-        </div>
-        <div class="gb-chargen-row">
-            <span class="gb-chargen-label">END</span>
-            <span class="gb-chargen-bar"><?= str_repeat('█', $p->end) ?></span>
-            <span class="gb-chargen-val"><?= $p->end ?></span>
+        <div class="gb-chargen-row" style="font-size:var(--base-s);color:#555;">
+            <span>PD</span><span></span><span>0</span>
         </div>
     </div>
 
     <div class="gb-chargen-derived">
-        <span>HP:<?= $p->maxHp ?></span>
-        <span>MP:<?= $p->maxMp ?></span>
-        <span>ATK:<?= $p->str ?></span>
+        <span>LP:<?= $p->maxHp ?></span>
+        <span>PA:0</span>
         <span>PD:0</span>
+        <span>GOLD:<?= $p->gold ?></span>
     </div>
 
     <div class="gb-chargen-actions">
@@ -54,3 +45,4 @@
     </div>
 
 </div>
+

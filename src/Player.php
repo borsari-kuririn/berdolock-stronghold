@@ -5,23 +5,17 @@ class Player
 {
     public string $name = 'Adventurer';
 
-    public int $str = 0;
-    public int $agi = 0;
-    public int $int = 0;
-    public int $end = 0;
-
     public int $maxHp = 0;
     public int $hp    = 0;
-    public int $maxMp = 0;
-    public int $mp    = 0;
 
     public int $gold    = 0;
     public int $torches = 0;
     public int $rations = 0;
 
-    public int $weaponBonus = 0;
-    public int $armorBonus  = 0;
-    public int $shieldBonus = 0;
+    // Equipment bonuses — these ARE the attack and defense stats
+    public int $weaponBonus = 0; // PA: added to attack roll
+    public int $armorBonus  = 0; // PD: flat damage reduction
+    public int $shieldBonus = 0; // PD: flat damage reduction
 
     public bool $isDark     = false;
     public bool $isStarving = false;
@@ -33,7 +27,7 @@ class Player
 
     public function attackPower(): int
     {
-        return $this->str + $this->weaponBonus;
+        return $this->weaponBonus;
     }
 
     public function defensePower(): int
@@ -41,3 +35,4 @@ class Player
         return $this->armorBonus + $this->shieldBonus;
     }
 }
+
