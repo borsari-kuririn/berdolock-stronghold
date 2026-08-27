@@ -1,0 +1,4 @@
+.vscode/sftp.json
+node_modules/
+tests/playwright/.session/
+playwright-report/
