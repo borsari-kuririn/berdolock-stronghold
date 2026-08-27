@@ -1,17 +1,25 @@
 <?php
 namespace Berdolock\Actions;
 
-use Berdolock\{GameState, Player, Dice};
+use Berdolock\GameState;
 
-class NewGame
+class CharGenAction
 {
-    public static function handle(array $post): GameState
+    public static function confirm(GameState $state): GameState
     {
-        $state  = new GameState();
-        $player = $state->player;
+        $state->phase = 'town';
+        $state->addLog("Welcome, {$state->player->name}. Prepare before entering.");
+        return $state;
+    }
 
-        $name = trim($post['name'] ?? '');
-        $player->name = $name !== '' ? $name : 'Adventurer';
+    public static function reroll(GameState $state): GameState
+    {
+        if ($state->rerolls >= 3) {
+            $state->addLog("No re-rolls remaining.");
+            return $state;
+        }
+
+        $player = $state->player;
 
         $player->str = self::roll2d6();
         $player->agi = self::roll2d6();
@@ -23,12 +31,7 @@ class NewGame
         $player->maxMp = $player->int;
         $player->mp    = $player->maxMp;
 
-        $player->gold    = 20;
-        $player->torches = 2;
-        $player->rations = 2;
-
-        $state->phase   = 'chargen';
-        $state->rerolls = 0;
+        $state->rerolls++;
 
         return $state;
     }

@@ -9,6 +9,7 @@ class GameState
     public int     $turnCount    = 0;
     public int     $roomCount    = 0;
     public int     $dangerLevel  = 1;
+    public int     $rerolls      = 0;
     public array   $log          = [];
 
     public function __construct()

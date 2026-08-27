@@ -29,6 +29,8 @@ $state = Session::load();
         <?php
         if ($state === null) {
             include __DIR__ . '/../src/Render/NewGameView.php';
+        } elseif ($state->phase === 'chargen') {
+            include __DIR__ . '/../src/Render/CharGenView.php';
         } elseif ($state->phase === 'town') {
             include __DIR__ . '/../src/Render/TownView.php';
         } elseif ($state->phase === 'dungeon') {

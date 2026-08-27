@@ -410,6 +410,89 @@ body {
 
 .gb-log p:first-child { color: #000; }
 
+/* ── Character creation / stat roll preview ─────────── */
+.gb-chargen {
+    padding: clamp(12px, 4vw, 24px);
+}
+
+.gb-chargen-title {
+    font-size: var(--base);
+    text-align: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: var(--pad);
+    margin-bottom: calc(var(--pad) * 2);
+}
+
+.gb-chargen-stats {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--pad) * 1.5);
+    margin-bottom: calc(var(--pad) * 2);
+}
+
+.gb-chargen-row {
+    display: grid;
+    grid-template-columns: 3em 1fr 2em;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--base);
+}
+
+.gb-chargen-label { font-size: var(--base-s); }
+
+/* filled blocks scale with the roll value */
+.gb-chargen-bar {
+    font-size: clamp(5px, 1.3vw, 7px);
+    letter-spacing: 1px;
+    color: #000;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.gb-chargen-val { text-align: right; }
+
+.gb-chargen-derived {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--base-s);
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    padding: var(--pad) 0;
+    margin-bottom: calc(var(--pad) * 2);
+}
+
+.gb-chargen-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.gb-chargen-actions button {
+    width: 100%;
+    font-family: inherit;
+    font-size: var(--base);
+    border: 2px solid #000;
+    min-height: var(--touch);
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    background: none;
+    color: #000;
+}
+
+.gb-chargen-actions button.btn-confirm {
+    background: #000;
+    color: #fff;
+}
+
+.gb-chargen-actions button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
 /* ── Status badges ──────────────────────────────────── */
 .status-bad  { color: #000; font-weight: bold; }
 
