@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* ── Reset ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: #888;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    min-height: 100vh;
+    font-family: 'Press Start 2P', monospace;
+}
+
+/* ── Outer screen bezel ─────────────────────────────── */
+#game-panel {
+    width: 320px;
+    background: #fff;
+    border: 4px solid #000;
+    image-rendering: pixelated;
+}
+
+/* ── Zone 1 · Header bar ────────────────────────────── */
+.gb-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 8px;
+    font-size: 8px;
+    border-bottom: 2px solid #000;
+    background: #fff;
+    white-space: nowrap;
+}
+
+/* ── Zone 2 · Main panel ────────────────────────────── */
+.gb-main {
+    display: flex;
+    border-bottom: 2px solid #000;
+}
+
+.gb-scene {
+    flex: 1;
+    min-height: 96px;
+    background: #000;
+    border-right: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.gb-scene canvas {
+    image-rendering: pixelated;
+}
+
+.gb-stats {
+    width: 96px;
+    padding: 6px 8px;
+    font-size: 8px;
+    line-height: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+}
+
+.gb-stats .gb-value {
+    text-align: right;
+    margin-bottom: 4px;
+}
+
+/* ── Zone 3 · Action panel ──────────────────────────── */
+.gb-actions {
+    padding: 6px 8px;
+    font-size: 8px;
+    min-height: 72px;
+}
+
+/* ── Action grid (dungeon phase) ────────────────────── */
+.gb-action-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0;
+}
+
+.gb-action-col {
+    padding: 4px;
+}
+
+.gb-action-col + .gb-action-col {
+    border-left: 2px solid #000;
+}
+
+/* ── D-pad ──────────────────────────────────────────── */
+.gb-dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 16px);
+    grid-template-rows: repeat(3, 16px);
+    gap: 1px;
+    margin: 4px auto;
+    width: fit-content;
+}
+
+.gb-dpad form { display: contents; }
+
+.gb-dpad button {
+    width: 16px;
+    height: 16px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 7px;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gb-dpad .dpad-center { background: #000; }
+.gb-dpad .dpad-empty  { background: transparent; }
+
+/* ── Menu list (combat / town) ──────────────────────── */
+.gb-menu {
+    list-style: none;
+    line-height: 2;
+}
+
+.gb-menu li {
+    font-size: 8px;
+    cursor: pointer;
+}
+
+.gb-menu form { display: inline; }
+
+.gb-menu button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 8px;
+    cursor: pointer;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.gb-menu button:hover { text-decoration: underline; }
+
+.gb-menu .selected button {
+    background: #000;
+    color: #fff;
+    padding: 1px 3px;
+}
+
+/* ── Dialogue box ───────────────────────────────────── */
+.gb-dialogue {
+    border: 2px solid #000;
+    padding: 6px;
+    font-size: 8px;
+    line-height: 1.8;
+    text-transform: uppercase;
+    min-height: 56px;
+}
+
+.gb-dialogue .gb-choice {
+    margin-top: 6px;
+    display: flex;
+    gap: 12px;
+}
+
+.gb-dialogue .gb-choice form { display: inline; }
+
+.gb-dialogue .gb-choice button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 0;
+}
+
+.gb-dialogue .gb-choice button.selected::before {
+    content: '○';
+    margin-right: 3px;
+}
+
+/* ── Two-column combat menu ─────────────────────────── */
+.gb-combat-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid #000;
+    font-size: 8px;
+}
+
+.gb-combat-menu .col-left,
+.gb-combat-menu .col-right {
+    padding: 4px 6px;
+}
+
+.gb-combat-menu .col-right {
+    border-left: 2px solid #000;
+}
+
+.gb-combat-menu .enemy-name-box {
+    border: 2px solid #000;
+    padding: 2px 4px;
+    font-size: 7px;
+    margin-top: 2px;
+}
+
+.gb-combat-menu button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 8px;
+    cursor: pointer;
+    display: block;
+    line-height: 2;
+    text-transform: uppercase;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+}
+
+.gb-combat-menu button.selected::before {
+    content: '○';
+    margin-right: 3px;
+}
+
+/* ── CSS Dungeon corridor ───────────────────────────── */
+.gb-dungeon {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 96px;
+}
+
+.gb-dungeon .frame {
+    position: absolute;
+    border: 3px solid #fff;
+    box-sizing: border-box;
+}
+
+.gb-dungeon .frame-1 { width: 88%; height: 80%; }
+.gb-dungeon .frame-2 { width: 66%; height: 58%; }
+.gb-dungeon .frame-3 { width: 44%; height: 36%; }
+
+.gb-dungeon .door {
+    position: absolute;
+    width: 22%;
+    height: 26%;
+    border: 3px solid #fff;
+    bottom: 32%;
+}
+
+.gb-dungeon .floor-left,
+.gb-dungeon .floor-right {
+    position: absolute;
+    bottom: 10%;
+    width: 25%;
+    height: 2px;
+    background: #fff;
+}
+
+.gb-dungeon .floor-left  { left: 6%;  transform: rotate(20deg);  transform-origin: left bottom; }
+.gb-dungeon .floor-right { right: 6%; transform: rotate(-20deg); transform-origin: right bottom; }
+
+/* ── New game screen ────────────────────────────────── */
+.gb-new-game {
+    padding: 12px 8px;
+}
+
+.gb-new-game h2 {
+    font-size: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.gb-new-game p {
+    font-size: 7px;
+    line-height: 2;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.gb-new-game label {
+    display: block;
+    font-size: 7px;
+    margin-bottom: 4px;
+}
+
+.gb-new-game input[type="text"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 8px;
+    border: 2px solid #000;
+    padding: 4px;
+    background: #fff;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.gb-new-game button,
+.gb-town button,
+.gb-gameover button {
+    width: 100%;
+    font-family: inherit;
+    font-size: 8px;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+}
+
+/* ── Town screen ────────────────────────────────────── */
+.gb-town {
+    padding: 6px 8px;
+}
+
+.gb-town h3 {
+    font-size: 7px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
+    margin-bottom: 4px;
+    margin-top: 6px;
+}
+
+.gb-town button {
+    width: 100%;
+    font-family: inherit;
+    font-size: 7px;
+    background: none;
+    color: #000;
+    border: 1px solid #000;
+    padding: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    text-align: left;
+    display: block;
+}
+
+.gb-town button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.gb-town button.btn-enter {
+    background: #000;
+    color: #fff;
+    margin-top: 8px;
+}
+
+/* ── Log ────────────────────────────────────────────── */
+.gb-log {
+    border-top: 2px solid #000;
+    padding: 4px 8px;
+    min-height: 28px;
+}
+
+.gb-log p {
+    font-size: 7px;
+    line-height: 1.8;
+    color: #555;
+}
+
+.gb-log p:first-child { color: #000; }
+
+/* ── Status badges ──────────────────────────────────── */
+.status-bad  { color: #000; font-weight: bold; }
+
+/* ── HTMX spinner ───────────────────────────────────── */
+#spinner {
+    display: none;
+    text-align: center;
+    font-size: 7px;
+    padding: 2px;
+    border-top: 1px solid #000;
+    background: #fff;
+}
+
+.htmx-request #spinner,
+#spinner.htmx-request { display: block; }
