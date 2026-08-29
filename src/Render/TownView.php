@@ -11,8 +11,14 @@
     <div class="gb-stats">
         <div>GOLD</div>
         <div class="gb-value"><?= $state->player->gold ?></div>
-        <div>EX</div>
-        <div class="gb-value"><?= $state->player->xp ?></div>
+        <div>TORCH</div>
+        <div class="gb-value"><?= $state->player->torches ?></div>
+        <div>FOOD</div>
+        <div class="gb-value"><?= $state->player->rations ?></div>
+        <div>PA</div>
+        <div class="gb-value"><?= $state->player->attackPower() ?></div>
+        <div>PD</div>
+        <div class="gb-value"><?= $state->player->defensePower() ?></div>
     </div>
 </div>
 
@@ -22,10 +28,10 @@
     $items = [
         ['sub' => 'buy_torch',  'label' => 'TORCH',       'cost' => 5],
         ['sub' => 'buy_ration', 'label' => 'RATION',      'cost' => 5],
-        ['sub' => 'buy_dagger', 'label' => 'DAGGER +1ATK','cost' => 10],
-        ['sub' => 'buy_sword',  'label' => 'SWORD  +3ATK','cost' => 25],
-        ['sub' => 'buy_armor',  'label' => 'ARMOR  +1PD', 'cost' => 20],
-        ['sub' => 'buy_shield', 'label' => 'SHIELD +1PD', 'cost' => 15],
+        ['sub' => 'buy_dagger', 'label' => 'DAGGER PA:1', 'cost' => 10],
+        ['sub' => 'buy_sword',  'label' => 'SWORD  PA:2', 'cost' => 25],
+        ['sub' => 'buy_armor',  'label' => 'ARMOR  PD:1', 'cost' => 20],
+        ['sub' => 'buy_shield', 'label' => 'SHIELD PD+1', 'cost' => 15],
     ];
     foreach ($items as $item):
         $canAfford = $state->player->gold >= $item['cost'];

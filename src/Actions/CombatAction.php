@@ -20,7 +20,7 @@ class CombatAction
         $enemy  = $state->currentEnemy;
 
         if ($player->isDark) {
-            $state->addLog("[DARK] Enemy strikes first!");
+            $state->addLog("[DARK] You can't see clearly \u2014 the enemy strikes first!");
             $state = self::enemyAttacks($state);
             if ($state->phase === 'gameover') return $state;
             $state = self::playerAttacks($state);
@@ -34,7 +34,7 @@ class CombatAction
                     $state = self::enemyAttacks($state);
                 }
             } else {
-                $state->addLog("{$enemy->name} acts first!");
+                $state->addLog("The {$enemy->name} acts first!");
                 $state = self::enemyAttacks($state);
                 if ($state->phase !== 'gameover') {
                     $state = self::playerAttacks($state);
@@ -46,7 +46,7 @@ class CombatAction
 
         if ($player->isPoisoned) {
             $player->hp--;
-            $state->addLog("Poison: -1 HP. ({$player->hp}/{$player->maxHp})");
+            $state->addLog("Poison deals 1 damage. LP: {$player->hp}/{$player->maxHp}");
             if ($player->hp <= 0) {
                 $state->phase = 'gameover';
                 $state->addLog("You succumb to poison.");
@@ -76,7 +76,7 @@ class CombatAction
             $state->addLog("Berdolock shrugs off your blow!");
         } else {
             $enemy->hp -= $damage;
-            $state->addLog("You deal {$damage} dmg. ({$enemy->name} HP:{$enemy->hp}/{$enemy->maxHp})");
+            $state->addLog("You attack the {$enemy->name} for {$damage} damage. (LP: {$enemy->hp}/{$enemy->maxHp})");
         }
 
         return $state;
@@ -94,24 +94,24 @@ class CombatAction
             && $enemy->hp < ($enemy->maxHp / 2)) {
             $enemy->enraged  = true;
             $enemy->attack  += 3;
-            $state->addLog("The Champion ENRAGES!");
+            $state->addLog("The Champion ENRAGES! ATK increased!");
         }
 
         $roll   = Dice::roll(6) + $enemy->attack + $attackBonus;
         $damage = max(0, $roll - $player->defensePower());
         $player->hp -= $damage;
 
-        $state->addLog("{$enemy->name} deals {$damage} dmg. HP:{$player->hp}/{$player->maxHp}");
+        $state->addLog("The {$enemy->name} deals {$damage} damage to you. (LP: {$player->hp}/{$player->maxHp})");
 
         // Spider poison
         if ($enemy->name === 'Spider' && $damage > 0 && Dice::roll(6) >= 4) {
             $player->isPoisoned = true;
-            $state->addLog("Spider venom — Poisoned!");
+            $state->addLog("The Spider's venom courses through you \u2014 Poisoned!");
         }
 
         if ($player->hp <= 0) {
             $state->phase = 'gameover';
-            $state->addLog("Slain by {$enemy->name}.");
+            $state->addLog("You have been slain by the {$enemy->name}.");
         }
 
         return $state;
@@ -124,9 +124,9 @@ class CombatAction
         if (Dice::luck()) {
             $state->currentEnemy = null;
             $state->phase        = 'dungeon';
-            $state->addLog("Fled from {$enemy->name}!");
+            $state->addLog("You flee from the {$enemy->name}!");
         } else {
-            $state->addLog("Flee failed! {$enemy->name} attacks.");
+            $state->addLog("Flee failed! The {$enemy->name} attacks you as you run.");
             $state = self::enemyAttacks($state);
         }
 
@@ -139,7 +139,7 @@ class CombatAction
         $player = $state->player;
 
         $player->gold += $enemy->goldDrop;
-        $state->addLog("Victory! +{$enemy->goldDrop} gold.");
+        $state->addLog("You defeat the {$enemy->name}! +{$enemy->goldDrop} gold.");
 
         $player->xp += $enemy->xpDrop;
         if ($player->xp >= $player->xpNext) {

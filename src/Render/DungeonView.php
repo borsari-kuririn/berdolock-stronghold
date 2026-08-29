@@ -16,15 +16,23 @@
         </div>
     </div>
     <div class="gb-stats">
-        <div>GOLD</div>
-        <div class="gb-value"><?= $state->player->gold ?></div>
-        <div>EX</div>
-        <div class="gb-value"><?= $state->player->xp ?></div>
-        <div style="font-size:6px;margin-top:4px;">
-            <?php if ($state->player->isDark): ?>[DARK]<br><?php endif ?>
-            <?php if ($state->player->isStarving): ?>[HUNGRY]<br><?php endif ?>
-            <?php if ($state->player->isPoisoned): ?>[POISON]<?php endif ?>
-        </div>
+        <div>ROOM</div>
+        <div class="gb-value"><?= $state->roomCount ?>/20</div>
+        <div>TURN</div>
+        <div class="gb-value"><?= $state->turnCount ?></div>
+        <div>TORCH</div>
+        <div class="gb-value"><?= $state->player->torches ?></div>
+        <div>FOOD</div>
+        <div class="gb-value"><?= $state->player->rations ?></div>
+        <?php if ($state->player->isDark): ?>
+        <div class="gb-value" style="color:#000;font-size:6px;margin-top:2px;">DARK</div>
+        <?php endif ?>
+        <?php if ($state->player->isStarving): ?>
+        <div class="gb-value" style="color:#000;font-size:6px;">STARV</div>
+        <?php endif ?>
+        <?php if ($state->player->isPoisoned): ?>
+        <div class="gb-value" style="color:#000;font-size:6px;">POISO</div>
+        <?php endif ?>
     </div>
 </div>
 
@@ -57,10 +65,7 @@
                 <div class="dpad-empty"></div>
             </div>
             <div style="font-size:6px;margin-top:4px;line-height:1.8;">
-                T:<?= $state->player->torches ?>
-                R:<?= $state->player->rations ?><br>
-                RM:<?= $state->roomCount ?>
-                TN:<?= $state->turnCount ?>
+                DNG:<?= $state->dangerLevel ?>
             </div>
         </div>
 

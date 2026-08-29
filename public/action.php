@@ -27,7 +27,14 @@ $state = match($action) {
 
 Session::save($state);
 
-match($state->phase) {
+// HTMX sends this header; absent means JS is off or direct navigation
+$isHtmx = !empty($_SERVER['HTTP_HX_REQUEST']);
+
+if (!$isHtmx) {
+    ob_start();
+}
+
+match($state->phase ?? null) {
     'chargen'  => include __DIR__ . '/../src/Render/CharGenView.php',
     'town'     => include __DIR__ . '/../src/Render/TownView.php',
     'dungeon'  => include __DIR__ . '/../src/Render/DungeonView.php',
@@ -36,3 +43,9 @@ match($state->phase) {
     'gameover' => include __DIR__ . '/../src/Render/GameOverView.php',
     default    => include __DIR__ . '/../src/Render/NewGameView.php',
 };
+
+if (!$isHtmx) {
+    $panelContent = ob_get_clean();
+    include __DIR__ . '/../src/Render/ShellView.php';
+}
+

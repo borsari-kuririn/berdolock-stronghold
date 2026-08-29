@@ -493,6 +493,45 @@ body {
     cursor: not-allowed;
 }
 
+/* ── Score card (victory / gameover) ────────────────── */
+.gb-score-card {
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    padding: var(--pad) calc(var(--pad) * 1.5);
+}
+
+.gb-score-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--base-s);
+    line-height: 2.2;
+}
+
+.gb-score-total {
+    border-top: 1px solid #000;
+    font-size: var(--base);
+    margin-top: 2px;
+    padding-top: 2px;
+}
+
+/* Shared full-width action button used in end screens */
+.gb-btn-full {
+    width: 100%;
+    font-family: inherit;
+    font-size: var(--base);
+    background: #000;
+    color: #fff;
+    border: none;
+    min-height: var(--touch);
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    margin-top: 6px;
+}
+
 /* ── Status badges ──────────────────────────────────── */
 .status-bad  { color: #000; font-weight: bold; }
 

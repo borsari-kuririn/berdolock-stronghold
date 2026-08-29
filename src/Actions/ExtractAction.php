@@ -8,7 +8,7 @@ class ExtractAction
     public static function handle(GameState $state): GameState
     {
         if ($state->turnCount < 30) {
-            $state->addLog("Not enough turns to extract safely.");
+            $state->addLog("You haven't survived long enough to extract safely.");
             return $state;
         }
 
@@ -23,8 +23,8 @@ class ExtractAction
         $state->player->isDark     = false;
         $state->player->isStarving = false;
 
-        $state->addLog("Extracted with {$gold} gold!");
-        $state->addLog("Back in town. Cure poison at the inn.");
+        $state->addLog("You extract successfully with {$gold} gold!");
+        $state->addLog("You return to town. Find a healer if poisoned.");
 
         return $state;
     }

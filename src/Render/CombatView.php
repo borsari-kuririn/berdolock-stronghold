@@ -39,8 +39,8 @@ $spriteKey = strtolower(str_replace(' ', '-', $state->currentEnemy->name));
                 <?= htmlspecialchars(strtoupper($state->currentEnemy->name)) ?>
             </div>
             <div style="font-size:6px;margin-top:4px;line-height:1.8;">
-                HP:<?= $state->currentEnemy->hp ?>/<?= $state->currentEnemy->maxHp ?><br>
-                ATK:<?= $state->currentEnemy->attack ?>
+                LP:<?= $state->currentEnemy->hp ?>/<?= $state->currentEnemy->maxHp ?><br>
+                PA:<?= $state->currentEnemy->attack ?>
                 PD:<?= $state->currentEnemy->defense ?>
             </div>
         </div>

@@ -11,18 +11,10 @@
             <span class="gb-chargen-bar"><?= str_repeat('█', $p->maxHp) ?></span>
             <span class="gb-chargen-val"><?= $p->maxHp ?></span>
         </div>
-        <div class="gb-chargen-row" style="font-size:var(--base-s);color:#555;">
-            <span>PA</span><span></span><span>0</span>
-        </div>
-        <div class="gb-chargen-row" style="font-size:var(--base-s);color:#555;">
-            <span>PD</span><span></span><span>0</span>
-        </div>
     </div>
 
     <div class="gb-chargen-derived">
         <span>LP:<?= $p->maxHp ?></span>
-        <span>PA:0</span>
-        <span>PD:0</span>
         <span>GOLD:<?= $p->gold ?></span>
     </div>
 

@@ -17,7 +17,7 @@ class NewGame
         $player->maxHp = self::roll2d6();
         $player->hp    = $player->maxHp;
 
-        $player->gold    = 20;
+        $player->gold    = random_int(1, 6) * 10;
         $player->torches = 2;
         $player->rations = 2;
 
